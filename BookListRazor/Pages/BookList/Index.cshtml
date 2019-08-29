@@ -13,6 +13,19 @@
         <a asp-page="Create" class="btn btn-primary">Create New Book</a>
     </div>
 </div>
+
+
+@if(Model.Message != null)
+{
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        @Model.Message
+    </div>
+}
+
+
 <form method="post">
 @if(Model.Books.Count()>0)
 {
@@ -43,7 +56,9 @@
                 @Html.DisplayFor(m => item.ISBN)
             </td>
             <td>
-                <button asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm col-sm-5">Delete</button>
+                <button asp-page-handler="Delete" asp-route-id="@item.Id" 
+                        onclick="return confirm('Are you sure you want to delete this book?')"
+                        class="btn btn-danger btn-sm col-sm-5">Delete</button>
                 <a asp-route-id="@item.Id" asp-page="Edit" class="btn btn-success btn-sm col-sm-5">Edit</a>
             </td>
         </tr>
